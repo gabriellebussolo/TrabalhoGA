@@ -34,11 +34,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 GLuint loadTexture(string texturePath);
 
 // Dimensıes da janela (pode ser alterado em tempo de execuÁ„o)
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = 1200, HEIGHT = 1000;
 
 
 //Variaveis globais
 Sprite spr;
+
+enum GameState {
+    START_SCREEN,
+    GAMEPLAY
+};
+
+GameState currentState = START_SCREEN;
 
 // FunÁ„o MAIN
 int main()
@@ -92,10 +99,11 @@ int main()
 	//Shader shader("../shaders/helloTriangle.vs", "../shaders/helloTriangle.fs");
 	Shader shader("../shaders/tex.vs", "../shaders/tex.fs");
 
-	GLuint texID = loadTexture("../Textures/pixelWall.png");
-	GLuint texID2 = loadTexture("../Textures/characters/PNG/Knight/knight.png");
-	GLuint texID3 = loadTexture("../Textures/backgrounds/PNG/Postapocalypce1/Pale/postapocalypse1.png");
+	GLuint texID2 = loadTexture("../Textures/menina.png");
+	GLuint texID3 = loadTexture("../Textures/fundo-jardim.png");
 	GLuint texID4 = loadTexture("../Textures/craftpix-net-159039-free-pirate-stuff-pixel-art-icons/PNG/Transperent/Icon41.png");
+	GLuint startTexID = loadTexture("../Textures/start.png"); // Nova textura para o botão "start"
+
 
 	//Criação de uma sprite
 
@@ -105,6 +113,11 @@ int main()
 	Sprite background;
 	background.setShader(&shader);
 	background.inicializar(texID3, glm::vec3(400.0, 300.0, 0.0), glm::vec3(1920.0/2.0, 1080.0/2.0, 1.0));
+
+	Sprite startButton;
+    startButton.setShader(&shader);
+    startButton.inicializar(startTexID, glm::vec3(400.0, 300.0, 0.0), glm::vec3(200.0, 100.0, 1.0)); // Ajuste a posição e escala conforme necessário
+
 
 	Sprite bomba;
 	bomba.setShader(&shader);
@@ -139,12 +152,15 @@ int main()
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		background.desenhar();
-		
-		spr.desenhar();
-
-		bomba.cair();
-		bomba.desenhar();
+		if (currentState == START_SCREEN) {
+            background.desenhar();
+            startButton.desenhar();
+        } else if (currentState == GAMEPLAY) {
+            background.desenhar();
+            spr.desenhar();
+            bomba.cair();
+            bomba.desenhar();
+        }
 
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
@@ -164,8 +180,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-	{
-		if (!spr.getJumping())
+    {
+        if (currentState == START_SCREEN) {
+            currentState = GAMEPLAY;
+        }else if (!spr.getJumping())
 		{
 			spr.setJumping(true);
 			spr.setOnGround(false);
