@@ -99,10 +99,10 @@ int main()
 	//Shader shader("../shaders/helloTriangle.vs", "../shaders/helloTriangle.fs");
 	Shader shader("../shaders/tex.vs", "../shaders/tex.fs");
 
-	GLuint texID2 = loadTexture("../Textures/menina.png");
-	GLuint texID3 = loadTexture("../Textures/fundo-jardim.png");
-	GLuint texID4 = loadTexture("../Textures/craftpix-net-159039-free-pirate-stuff-pixel-art-icons/PNG/Transperent/Icon41.png");
-	GLuint startTexID = loadTexture("../Textures/start.png"); // Nova textura para o botão "start"
+	GLuint texID2 = loadTexture("../Textures/personagens/menina.png");
+	GLuint texID3 = loadTexture("../Textures/background/fundo-jardim.png");
+	GLuint texID4 = loadTexture("../Textures/itens/bomba.png");
+	GLuint startTexID = loadTexture("../Textures/atributos/start.png"); // Nova textura para o botão "start"
 
 
 	//Criação de uma sprite
