@@ -102,6 +102,7 @@ int main()
 	GLuint texID2 = loadTexture("../Textures/personagens/menina.png");
 	GLuint texID3 = loadTexture("../Textures/background/fundo-jardim.png");
 	GLuint texID4 = loadTexture("../Textures/itens/bomba.png");
+	GLuint texID5 = loadTexture("../Textures/itens/banana.png");
 	GLuint startTexID = loadTexture("../Textures/atributos/start.png"); // Nova textura para o botão "start"
 
 
@@ -123,6 +124,9 @@ int main()
 	bomba.setShader(&shader);
 	bomba.inicializar(texID4, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
+	Sprite banana;
+	banana.setShader(&shader);
+	banana.inicializar(texID5, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	//Ativando o buffer de textura 0 da opengl
 	glActiveTexture(GL_TEXTURE0);
@@ -160,6 +164,8 @@ int main()
             spr.desenhar();
             bomba.cair();
             bomba.desenhar();
+			banana.cair();
+			banana.desenhar();
         }
 
 		// Troca os buffers da tela

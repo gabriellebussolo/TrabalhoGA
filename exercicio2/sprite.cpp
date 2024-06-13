@@ -21,7 +21,7 @@ void Sprite::inicializar(GLuint texID, glm::vec3 pos, glm::vec3 escala, float an
 
 	jumpVel.x = 0.0;
 	jumpVel.y = 0.5;
-	vel = 5.0;
+	vel = 15.0;
 
 
 
