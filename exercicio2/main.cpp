@@ -66,7 +66,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	// Criação da janela GLFW
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Ola Triangulo! -- Rossana", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Trabalho GA", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 	// Fazendo o registro da função de callback para a janela GLFW
@@ -97,32 +97,72 @@ int main()
 	//Shader shader("../shaders/helloTriangle.vs", "../shaders/helloTriangle.fs");
 	Shader shader("../shaders/tex.vs", "../shaders/tex.fs");
 
-	GLuint texID2 = loadTexture("../Textures/personagens/menina.png");
-	GLuint texID3 = loadTexture("../Textures/background/fundo-jardim.png");
-	GLuint texID4 = loadTexture("../Textures/itens/bomba.png");
-	GLuint texID5 = loadTexture("../Textures/itens/banana.png");
+	// Textura de botoes
 	GLuint startTexID = loadTexture("../Textures/atributos/start.png"); // Nova textura para o botão "start"
 
+	// Textura do fundo
+	GLuint fundoTextID = loadTexture("../Textures/background/fundo-jardim.png");
+
+	// Textura do personagem
+	GLuint meninaTextID = loadTexture("../Textures/personagens/menina.png");
+	
+	// Textura dos itens
+	GLuint bombaTextID = loadTexture("../Textures/itens/bomba.png");
+	GLuint bananaTextID = loadTexture("../Textures/itens/banana.png");
+	GLuint boloTextID = loadTexture("../Textures/itens/bolo.png");
+	GLuint macaTextID = loadTexture("../Textures/itens/maca.png");
+	GLuint sanduicheTextID = loadTexture("../Textures/itens/sanduiche.png");
+	GLuint sucoTextID = loadTexture("../Textures/itens/suco.png");
+	GLuint lataLixoTextID = loadTexture("../Textures/itens/lata-lixo.png");
+	GLuint macaLixoTextID = loadTexture("../Textures/itens/maca-lixo.png");
+	
 	//Criação de uma sprite
 	spr.setShader(&shader);
-	spr.inicializar(texID2, glm::vec3(400.0, 150.0, 0.0), glm::vec3(128, 128, 1.0));
+	spr.inicializar(meninaTextID, glm::vec3(400.0, 150.0, 0.0), glm::vec3(128, 128, 1.0));
 	
+	// Sprite do background
 	Sprite background;
 	background.setShader(&shader);
-	background.inicializar(texID3, glm::vec3(400.0, 300.0, 0.0), glm::vec3(1920.0/2.0, 1080.0/2.0, 1.0));
+	background.inicializar(fundoTextID, glm::vec3(400.0, 300.0, 0.0), glm::vec3(1920.0/2.0, 1080.0/2.0, 1.0));
 
+	// Sprite dos botoes
 	Sprite startButton;
     startButton.setShader(&shader);
     startButton.inicializar(startTexID, glm::vec3(400.0, 300.0, 0.0), glm::vec3(200.0, 100.0, 1.0)); // Ajuste a posição e escala conforme necessário
 
-
-	Sprite bomba;
-	bomba.setShader(&shader);
-	bomba.inicializar(texID4, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
-
+	// Sprite dos itens que dao ponto
 	Sprite banana;
 	banana.setShader(&shader);
-	banana.inicializar(texID5, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	banana.inicializar(bananaTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+
+	Sprite bolo;
+	bolo.setShader(&shader);
+	bolo.inicializar(boloTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+
+	Sprite maca;
+	maca.setShader(&shader);
+	maca.inicializar(macaTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+
+	Sprite sanduiche;
+	sanduiche.setShader(&shader);
+	sanduiche.inicializar(sanduicheTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+
+	Sprite suco;
+	suco.setShader(&shader);
+	suco.inicializar(sucoTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+
+	// Sprite itens que dao dano
+	Sprite bomba;
+	bomba.setShader(&shader);
+	bomba.inicializar(bombaTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+
+	Sprite lataLixo;
+	lataLixo.setShader(&shader);
+	lataLixo.inicializar(lataLixoTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+
+	Sprite macaLixo;
+	macaLixo.setShader(&shader);
+	macaLixo.inicializar(macaLixoTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	//Ativando o buffer de textura 0 da opengl
 	glActiveTexture(GL_TEXTURE0);
