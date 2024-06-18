@@ -16,11 +16,6 @@ void Sprite::inicializar(GLuint texID, glm::vec3 pos, glm::vec3 escala, float an
 	this->escala = escala;
 	this->angulo = angulo;
 
-	isJumping = false;
-	onGround = true;
-
-	jumpVel.x = 0.0;
-	jumpVel.y = 0.5;
 	vel = 15.0;
 
 
@@ -125,40 +120,6 @@ void Sprite::cair()
 
 void Sprite::atualizar()
 {
-	if (pos.y >= 500 && isJumping) //altura máxima
-	{
-		isJumping = false;
-	}
-	//atualizar pulo
-	if (isJumping)
-	{
-		pos.x = pos.x + jumpVel.x * vel;
-		pos.y = pos.y + jumpVel.y * vel;
-
-		
-	}
-	else {
-		if (pos.y <= 150.0 && !onGround)
-		{
-			pos.y = 150.0;
-			onGround = true;
-		}
-		else
-		{
-			if (!onGround)
-				pos.y -= jumpVel.y * vel; 
-
-		}
-		if (pos.y >= 300 && isJumping) //altura máxima
-		{
-			isJumping = false;
-		}
-	}
-
-	
-
-
-
 	glm::mat4 model = glm::mat4(1); //matriz identidade
 	model = glm::translate(model, pos);
 	model = glm::rotate(model, glm::radians(angulo), glm::vec3(0.0, 0.0, 1.0));

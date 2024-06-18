@@ -15,10 +15,6 @@ public:
 	void cair();
 
 	inline void setShader(Shader* shader) { this->shader = shader; }
-	inline void setJumping(bool isJumping) { this->isJumping = isJumping; }
-	inline void setOnGround(bool onGround) { this->onGround = onGround;  }
-	inline bool getJumping() { return isJumping; }
-	inline void setJumpVel(glm::vec2 jumpVel) { this->jumpVel = jumpVel; }
 protected:
 	void atualizar();
 	GLuint VAO; //identificador do buffer de geometria, indicando os atributos dos vértices
@@ -32,8 +28,6 @@ protected:
 	Shader *shader;
 
 	//Atributos para controle das ações
-	bool isJumping, onGround;
-	glm::vec2 jumpVel;
 	float vel;
 
 };

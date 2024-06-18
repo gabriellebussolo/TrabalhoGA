@@ -93,8 +93,6 @@ int main()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
-
 	// Compilando e buildando o programa de shader
 	//Shader shader("../shaders/helloTriangle.vs", "../shaders/helloTriangle.fs");
 	Shader shader("../shaders/tex.vs", "../shaders/tex.fs");
@@ -105,9 +103,7 @@ int main()
 	GLuint texID5 = loadTexture("../Textures/itens/banana.png");
 	GLuint startTexID = loadTexture("../Textures/atributos/start.png"); // Nova textura para o botão "start"
 
-
 	//Criação de uma sprite
-
 	spr.setShader(&shader);
 	spr.inicializar(texID2, glm::vec3(400.0, 150.0, 0.0), glm::vec3(128, 128, 1.0));
 	
@@ -184,42 +180,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-
-	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-    {
-        if (currentState == START_SCREEN) {
+		if (currentState == START_SCREEN) {
             currentState = GAMEPLAY;
-        }else if (!spr.getJumping())
-		{
-			spr.setJumping(true);
-			spr.setOnGround(false);
 		}
-	}
-	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
-	{
-		spr.setJumping(false);
-		spr.setJumpVel(glm::vec2(0.0, 0.5));
-	}
 
 	if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT)
 	{
 		spr.moverParaDireita();
-		if (spr.getJumping())
-		{
-			spr.setJumpVel(glm::vec2(0.5, 0.5)); //45 graus
-		}
 	}
 	if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT)
 	{
 		spr.moverParaEsquerda();
-		if (spr.getJumping())
-		{
-			spr.setJumpVel(glm::vec2(-0.5, 0.5)); //-45 graus
-		}
 	}
 	
 }
-
 
 GLuint loadTexture(string texturePath)
 {
