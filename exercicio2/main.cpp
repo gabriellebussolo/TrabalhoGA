@@ -36,9 +36,10 @@ GLuint loadTexture(string texturePath);
 // Dimensıes da janela (pode ser alterado em tempo de execuÁ„o)
 const GLuint WIDTH = 1200, HEIGHT = 1000;
 
-
 //Variaveis globais
 Sprite spr;
+int cont = 400;
+int sorteio;
 
 enum GameState {
     START_SCREEN,
@@ -180,6 +181,17 @@ int main()
 	// Loop da aplicação - "game loop"
 	while (!glfwWindowShouldClose(window))
 	{
+		// sorteia um numero de 0 a 50
+		// 1 - 10 -> banana
+		// 11 - 20 -> bolo
+		// 21 - 30 -> maca
+		// 31 - 40 -> sanduiche
+		// 41 - 50 -> suco
+		if(cont >= 400){ // 400 porque eh 1000/2.5
+			sorteio = 1 + rand() % 50;
+			cont = 0;
+		}
+
 		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
 		glfwPollEvents();
 
@@ -195,13 +207,35 @@ int main()
 		if (currentState == START_SCREEN) {
             background.desenhar();
             startButton.desenhar();
+
         } else if (currentState == GAMEPLAY) {
             background.desenhar();
             spr.desenhar();
-            bomba.cair();
+
+			bomba.cair();
             bomba.desenhar();
-			banana.cair();
-			banana.desenhar();
+
+			if (sorteio <= 10){
+				banana.cair();
+				banana.desenhar();
+			}
+			else if (sorteio <= 20 && sorteio > 10){
+				bolo.cair();
+				bolo.desenhar();
+			}
+			else if (sorteio <= 30 && sorteio > 20){
+				maca.cair();
+				maca.desenhar();
+			}
+			else if (sorteio <= 40 && sorteio > 30){
+				sanduiche.cair();
+				sanduiche.desenhar();
+			}
+			else{
+				suco.cair();
+				suco.desenhar();
+			}
+			cont++;
         }
 
 		// Troca os buffers da tela

@@ -18,8 +18,6 @@ void Sprite::inicializar(GLuint texID, glm::vec3 pos, glm::vec3 escala, float an
 
 	vel = 15.0;
 
-
-
 	// Aqui setamos as coordenadas x, y e z do triângulo e as armazenamos de forma
 	// sequencial, já visando mandar para o VBO (Vertex Buffer Objects)
 	// Cada atributo do vértice (coordenada, cores, coordenadas de textura, normal, etc)
@@ -107,12 +105,13 @@ void Sprite::moverParaEsquerda()
 
 void Sprite::cair()
 {
+	// faz com que o item fique caindo ate chegar no y < 100
 	if (pos.y >= 100.0)
 	{
 		pos.y -= 2.5;
 	}
-	else
-	{
+	// depois que chega no y < 100, quer dizer que cheguei no chao, ai pode cair de novo
+	else {
 		pos.x = 10 + rand() % 781;
 		pos.y = 1000.0;
 	}
