@@ -134,36 +134,36 @@ int main()
 	// Sprite dos itens que dao ponto
 	Sprite banana;
 	banana.setShader(&shader);
-	banana.inicializar(bananaTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	banana.inicializar(bananaTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	Sprite bolo;
 	bolo.setShader(&shader);
-	bolo.inicializar(boloTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	bolo.inicializar(boloTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	Sprite maca;
 	maca.setShader(&shader);
-	maca.inicializar(macaTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	maca.inicializar(macaTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	Sprite sanduiche;
 	sanduiche.setShader(&shader);
-	sanduiche.inicializar(sanduicheTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	sanduiche.inicializar(sanduicheTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	Sprite suco;
 	suco.setShader(&shader);
-	suco.inicializar(sucoTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	suco.inicializar(sucoTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	// Sprite itens que dao dano
 	Sprite bomba;
 	bomba.setShader(&shader);
-	bomba.inicializar(bombaTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	bomba.inicializar(bombaTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	Sprite lataLixo;
 	lataLixo.setShader(&shader);
-	lataLixo.inicializar(lataLixoTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	lataLixo.inicializar(lataLixoTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	Sprite macaLixo;
 	macaLixo.setShader(&shader);
-	macaLixo.inicializar(macaLixoTextID, glm::vec3(400.0, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
+	macaLixo.inicializar(macaLixoTextID, glm::vec3(10 + rand() % 781, 900.0, 0.0), glm::vec3(32.0, 32.0, 1.0));
 
 	//Ativando o buffer de textura 0 da opengl
 	glActiveTexture(GL_TEXTURE0);
