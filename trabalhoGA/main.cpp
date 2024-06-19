@@ -182,13 +182,13 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		// sorteia um numero de 0 a 50
-		// 1 - 10 -> banana
-		// 11 - 20 -> bolo
-		// 21 - 30 -> maca
-		// 31 - 40 -> sanduiche
-		// 41 - 50 -> suco
+		// 1 -> banana
+		// 2 -> bolo
+		// 3 -> maca
+		// 4 -> sanduiche
+		// 5 -> suco
 		if(cont >= 400){ // 400 porque eh 1000/2.5
-			sorteio = 1 + rand() % 50;
+			sorteio = 1 + rand() % 5;
 			cont = 0;
 		}
 
@@ -215,19 +215,19 @@ int main()
 			bomba.cair();
             bomba.desenhar();
 
-			if (sorteio <= 10){
+			if (sorteio == 1){
 				banana.cair();
 				banana.desenhar();
 			}
-			else if (sorteio <= 20 && sorteio > 10){
+			else if (sorteio == 2){
 				bolo.cair();
 				bolo.desenhar();
 			}
-			else if (sorteio <= 30 && sorteio > 20){
+			else if (sorteio == 3){
 				maca.cair();
 				maca.desenhar();
 			}
-			else if (sorteio <= 40 && sorteio > 30){
+			else if (sorteio == 4){
 				sanduiche.cair();
 				sanduiche.desenhar();
 			}
@@ -310,3 +310,16 @@ GLuint loadTexture(string texturePath)
 
 	return texID;
 }
+/*
+bool CheckCollision(Sprite &one, Sprite &two)
+{
+	one.
+	// collision x-axis?
+	bool collisionX = one.xmax >= two.xmin &&
+	two.xmax >= one.xmin;
+	// collision y-axis?
+	bool collisionY = one.ymax>= two.ymin &&
+	two.ymax >= one.ymin;
+	// collision only if on both axes
+	return collisionX && collisionY;
+}*/

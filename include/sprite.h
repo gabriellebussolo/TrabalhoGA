@@ -23,6 +23,10 @@ protected:
 	//Variáveis com as infos para aplicar as transformações no objeto
 	glm::vec3 pos, escala;
 	float angulo;
+	float xmax;
+	float ymax;
+	float xmin;
+	float ymin;
 
 	//Uma referência ao programa de shader que a sprite irá usar para seu desenho
 	Shader *shader;
