@@ -125,4 +125,15 @@ void Sprite::atualizar()
 	model = glm::scale(model, escala);
 	shader->setMat4("model", glm::value_ptr(model));
 
+    updateBounds(); // Call this to update the bounds after transformations
+}
+
+void Sprite::updateBounds()
+{
+    float halfWidth = abs(escala.x) / 2.0f;
+    float halfHeight = escala.y / 2.0f;
+    xmin = pos.x - halfWidth;
+    xmax = pos.x + halfWidth;
+    ymin = pos.y - halfHeight;
+    ymax = pos.y + halfHeight;
 }

@@ -15,18 +15,20 @@ public:
 	void cair();
 
 	inline void setShader(Shader* shader) { this->shader = shader; }
+	void updateBounds();
+	//Variáveis com as infos para aplicar as transformações no objeto
+	glm::vec3 pos, escala;
+	float xmax;
+	float ymax;
+	float xmin;
+	float ymin;
+
 protected:
 	void atualizar();
 	GLuint VAO; //identificador do buffer de geometria, indicando os atributos dos vértices
 	GLuint texID; //identificador do buffer de textura
 
-	//Variáveis com as infos para aplicar as transformações no objeto
-	glm::vec3 pos, escala;
 	float angulo;
-	float xmax;
-	float ymax;
-	float xmin;
-	float ymin;
 
 	//Uma referência ao programa de shader que a sprite irá usar para seu desenho
 	Shader *shader;

@@ -33,6 +33,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // ProtÛtipos das funÁıes
 GLuint loadTexture(string texturePath);
 
+bool CheckCollision(Sprite &one, Sprite &two);
+
 // Dimensıes da janela (pode ser alterado em tempo de execuÁ„o)
 const GLuint WIDTH = 1200, HEIGHT = 1000;
 
@@ -199,49 +201,72 @@ int main()
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
 		glViewport(0, 0, width, height); //unidades de tela: pixel
-		
+
 		// Limpa o buffer de cor
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		if (currentState == START_SCREEN) {
-            background.desenhar();
-            startButton.desenhar();
-
-        } else if (currentState == GAMEPLAY) {
-            background.desenhar();
-            spr.desenhar();
+			background.desenhar();
+			startButton.desenhar();
+		} else if (currentState == GAMEPLAY) {
+			background.desenhar();
+			spr.desenhar();
 
 			bomba.cair();
-            bomba.desenhar();
+			bomba.desenhar();
+
+			if (CheckCollision(spr, bomba)) {
+				startButton.desenhar(); // coloquei so para testar se tava funcionando
+			}
 
 			if (sorteio == 1){
 				banana.cair();
 				banana.desenhar();
+				if (CheckCollision(spr, banana)) {
+					cout << "Menina pegou a banana!" << endl;
+					// Handle collision
+				}
 			}
 			else if (sorteio == 2){
 				bolo.cair();
 				bolo.desenhar();
+				if (CheckCollision(spr, bolo)) {
+					cout << "Menina pegou o bolo!" << endl;
+					// Handle collision
+				}
 			}
 			else if (sorteio == 3){
 				maca.cair();
 				maca.desenhar();
+				if (CheckCollision(spr, maca)) {
+					cout << "Menina pegou a maca!" << endl;
+					// Handle collision
+				}
 			}
 			else if (sorteio == 4){
 				sanduiche.cair();
 				sanduiche.desenhar();
+				if (CheckCollision(spr, sanduiche)) {
+					cout << "Menina pegou o sanduiche!" << endl;
+					// Handle collision
+				}
 			}
 			else{
 				suco.cair();
 				suco.desenhar();
+				if (CheckCollision(spr, suco)) {
+					cout << "Menina pegou o suco!" << endl;
+					// Handle collision
+				}
 			}
 			cont++;
-        }
+		}
 
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
-	}
-	
+}
+
 	// Finaliza a execução da GLFW, limpando os recursos alocados por ela
 	glfwTerminate();
 	return 0;
@@ -310,11 +335,10 @@ GLuint loadTexture(string texturePath)
 
 	return texID;
 }
-/*
+
 bool CheckCollision(Sprite &one, Sprite &two)
 {
-	one.
-	// collision x-axis?
+		// collision x-axis?
 	bool collisionX = one.xmax >= two.xmin &&
 	two.xmax >= one.xmin;
 	// collision y-axis?
@@ -322,4 +346,4 @@ bool CheckCollision(Sprite &one, Sprite &two)
 	two.ymax >= one.ymin;
 	// collision only if on both axes
 	return collisionX && collisionY;
-}*/
+}
