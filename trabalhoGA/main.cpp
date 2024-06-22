@@ -33,7 +33,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // ProtÛtipos das funÁıes
 GLuint loadTexture(string texturePath);
 
-bool CheckCollision(Sprite &one, Sprite &two);
+bool checkCollision(Sprite &one, Sprite &two);
 
 // Dimensıes da janela (pode ser alterado em tempo de execuÁ„o)
 const GLuint WIDTH = 1200, HEIGHT = 1000;
@@ -42,10 +42,12 @@ const GLuint WIDTH = 1200, HEIGHT = 1000;
 Sprite spr;
 int cont = 400;
 int sorteio;
+int vidas = 5;
 
 enum GameState {
     START_SCREEN,
-    GAMEPLAY
+    GAMEPLAY,
+	GAMEOVER,
 };
 
 GameState currentState = START_SCREEN;
@@ -102,6 +104,7 @@ int main()
 
 	// Textura de botoes
 	GLuint startTexID = loadTexture("../Textures/atributos/start.png"); // Nova textura para o botão "start"
+	GLuint gameOverTexID = loadTexture("../Textures/atributos/game-over.png"); 
 
 	// Textura do fundo
 	GLuint fundoTextID = loadTexture("../Textures/background/fundo-jardim.png");
@@ -132,6 +135,10 @@ int main()
 	Sprite startButton;
     startButton.setShader(&shader);
     startButton.inicializar(startTexID, glm::vec3(400.0, 300.0, 0.0), glm::vec3(200.0, 100.0, 1.0)); // Ajuste a posição e escala conforme necessário
+
+	Sprite gameOverButton;
+    gameOverButton.setShader(&shader);
+    gameOverButton.inicializar(gameOverTexID, glm::vec3(400.0, 300.0, 0.0), glm::vec3(200.0, 150.0, 1.0));
 
 	// Sprite dos itens que dao ponto
 	Sprite banana;
@@ -216,14 +223,15 @@ int main()
 			bomba.cair();
 			bomba.desenhar();
 
-			if (CheckCollision(spr, bomba)) {
+			if (checkCollision(spr, bomba)) {
 				startButton.desenhar(); // coloquei so para testar se tava funcionando
+				vidas--;
 			}
 
 			if (sorteio == 1){
 				banana.cair();
 				banana.desenhar();
-				if (CheckCollision(spr, banana)) {
+				if (checkCollision(spr, banana)) {
 					cout << "Menina pegou a banana!" << endl;
 					// Handle collision
 				}
@@ -231,7 +239,7 @@ int main()
 			else if (sorteio == 2){
 				bolo.cair();
 				bolo.desenhar();
-				if (CheckCollision(spr, bolo)) {
+				if (checkCollision(spr, bolo)) {
 					cout << "Menina pegou o bolo!" << endl;
 					// Handle collision
 				}
@@ -239,7 +247,7 @@ int main()
 			else if (sorteio == 3){
 				maca.cair();
 				maca.desenhar();
-				if (CheckCollision(spr, maca)) {
+				if (checkCollision(spr, maca)) {
 					cout << "Menina pegou a maca!" << endl;
 					// Handle collision
 				}
@@ -247,7 +255,7 @@ int main()
 			else if (sorteio == 4){
 				sanduiche.cair();
 				sanduiche.desenhar();
-				if (CheckCollision(spr, sanduiche)) {
+				if (checkCollision(spr, sanduiche)) {
 					cout << "Menina pegou o sanduiche!" << endl;
 					// Handle collision
 				}
@@ -255,12 +263,19 @@ int main()
 			else{
 				suco.cair();
 				suco.desenhar();
-				if (CheckCollision(spr, suco)) {
+				if (checkCollision(spr, suco)) {
 					cout << "Menina pegou o suco!" << endl;
 					// Handle collision
 				}
 			}
 			cont++;
+		}else if(currentState == GAMEOVER){
+			background.desenhar();
+			gameOverButton.desenhar();
+		}
+
+		if(vidas == 0){
+			currentState = GAMEOVER;
 		}
 
 		// Troca os buffers da tela
@@ -281,6 +296,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 		if (currentState == START_SCREEN) {
             currentState = GAMEPLAY;
+		} else if (currentState == GAMEOVER){
+			vidas = 5;
+			currentState = START_SCREEN;
 		}
 
 	if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT)
@@ -336,7 +354,7 @@ GLuint loadTexture(string texturePath)
 	return texID;
 }
 
-bool CheckCollision(Sprite &one, Sprite &two)
+bool checkCollision(Sprite &one, Sprite &two)
 {
 		// collision x-axis?
 	bool collisionX = one.xmax >= two.xmin &&
